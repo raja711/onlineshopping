@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | S.Kmart Online Shopping</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0065bd;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            color: #0065bd;
+            text-align: center;
+        }
+        label {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0065bd;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #004f8f;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .footer a {
+            color: #0065bd;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>S.Kmart Online Shopping</h1>
+    <p>Create a new account</p>
+</header>
+
+<div class="container">
+    <h2>Sign Up</h2>
+
+    {% if messages %}
+    <div style="margin-bottom: 15px;">
+        {% for message in messages %}
+            <p style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %}; text-align: center; font-weight: bold;">
+                {{ message }}
+            </p>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form action="/signup/" method="POST">
+        {% csrf_token %}
+
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Choose a username" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Choose a password" required>
+
+        <button type="submit" class="button">Register</button>
+    </form>
+
+    <div class="footer">
+        <p>Already have an account? <a href="/login/">Login</a></p>
+    </div>
+</div>
+
+</body>
+</html>

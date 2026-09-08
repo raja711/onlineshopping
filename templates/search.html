@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <title>Search Results - S.K. Mart</title>
+    {% load static %}
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Navbar Styling */
+        .navbar-custom {
+            background: linear-gradient(135deg, #312e81, #4338ca) !important;
+            box-shadow: 0 4px 15px rgba(49, 46, 129, 0.15);
+            padding: 10px 20px;
+        }
+        .navbar-nav .nav-link {
+            color: #e0e7ff !important;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-radius: 4px;
+            padding: 8px 12px !important;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #fbbf24 !important;
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Modern Product Cards */
+        .card {
+            background-color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease-in-out;
+            overflow: hidden;
+            margin-bottom: 25px;
+            border-top: 3px solid #4338ca;
+        }
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(67, 56, 202, 0.1);
+            border-top-color: #f59e0b;
+        }
+        .card-img-top {
+            height: 190px;
+            object-fit: contain;
+            background-color: #f8fafc;
+            padding: 12px;
+        }
+        .card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #1e1b4b;
+            margin: 15px 15px 5px 15px;
+        }
+        .card p {
+            color: #64748b;
+            font-size: 0.85rem;
+            padding: 0 15px;
+            min-height: 38px;
+        }
+        .card .price {
+            font-size: 1.25rem;
+            color: #dc2626;
+            font-weight: 800;
+            margin: 10px 15px;
+        }
+        .card-body-custom {
+            padding: 0 15px 18px 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Buttons */
+        .btn-cart {
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            padding: 9px;
+            border-radius: 8px;
+            font-weight: 600;
+            width: 50%;
+            transition: background 0.2s;
+        }
+        .btn-cart:hover {
+            background-color: #4338ca;
+            color: white;
+        }
+        .btn-buy {
+            background-color: #059669;
+            color: white;
+            border: none;
+            padding: 9px;
+            border-radius: 8px;
+            font-weight: 600;
+            width: 50%;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-buy:hover {
+            background-color: #047857;
+            color: white;
+            text-decoration: none;
+        }
+
+        .search-heading {
+            color: #1e1b4b;
+            font-weight: 800;
+            margin: 35px 0 25px 0;
+        }
+        .search-heading span {
+            color: #f59e0b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid p-0">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'sk mart.png' %}" width="50" height="50" alt="Logo" style="border-radius: 50%; border: 2px solid #fbbf24; object-fit: cover;">
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item px-2">
+                    <a class="nav-link" href="{% url 'home' %}"><i class="fa-solid fa-house text-warning"></i> Home</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a class="nav-link" href="{% url 'about' %}"><i class="fa-regular fa-address-card"></i> About Us</a>
+                </li>
+                <li class="nav-item px-2">
+                    <a class="nav-link" href="{% url 'contact' %}"><i class="fa-regular fa-user"></i> Contact</a>
+                </li>
+            </ul>
+
+            <!-- Search Form -->
+            <form class="form-inline my-2 my-lg-0" method="GET" action="{% url 'search' %}">
+                <input class="form-control mr-sm-2 rounded-pill px-3 border-0" type="search" name="q" value="{{ query|default:'' }}" placeholder="Search products..." aria-label="Search" style="box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);">
+                <button class="btn btn-warning text-dark font-weight-bold my-2 my-sm-0 rounded-pill px-4" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Search Results Content Section -->
+    <div class="container mb-5">
+        <h2 class="text-center search-heading">🔍 Search Results for: <span>"{{ query }}"</span></h2>
+
+        {% if products %}
+            <div class="row">
+                {% for p in products %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <!-- यहाँ पर सुरक्षित चेक जोड़ा गया है ताकि इमेज न होने पर एरर न आए -->
+                        {% if p.image %}
+                            <img class="card-img-top" src="{{ p.image.url }}" alt="{{ p.name }}">
+                        {% else %}
+                            <img class="card-img-top" src="https://via.placeholder.com/150?text=No+Image" alt="No Image">
+                        {% endif %}
+
+                        <h3>{{ p.name }}</h3>
+                        <p>{{ p.description }}</p>
+                        <div class="price">₹{{ p.price }}</div>
+                        <div class="card-body-custom">
+                            <button class="btn-cart"><i class="fas fa-cart-plus"></i> Add Cart</button>
+                            <a class="btn-buy" href="#">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="text-center my-5 py-5 bg-white rounded shadow-sm">
+                <i class="fas fa-box-open text-muted fa-3x mb-3"></i>
+                <h4 class="text-secondary font-weight-bold">No products found matching "{{ query }}"</h4>
+                <p class="text-muted">Please try searching with different keywords.</p>
+                <a href="{% url 'home' %}" class="btn btn-primary mt-3 px-4 rounded-pill">Back to Home</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Footer -->
+    <footer style="background-color: #020617; color: #64748b; text-align: center; padding: 15px; font-size: 0.85rem; margin-top: 50px;">
+        <p style="margin: 0;">&copy; 2026 S.K.mart Online Shopping | All Rights Reserved</p>
+    </footer>
+
+</div>
+
+</body>
+</html>
